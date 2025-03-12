@@ -20,28 +20,28 @@
     dest: 'C:\wallpaper\wallpaper.png'
 
 - name: Install git
-  chocolatey.chocolatey.chocolatey:
+  chocolatey.chocolatey.win_chocolatey:
     name: git
     state: present
 
 - name: Install NodeJS
-  chocolatey.chocolatey.chocolatey:
+  chocolatey.chocolatey.win_chocolatey:
     name: nodejs
     state: present
 
 - name: Install jdk8
-  chocolatey.chocolatey.chocolatey:
+  chocolatey.chocolatey.win_chocolatey:
     name: jdk8
     version: "8.0.211"
     state: present
 
 - name: Install VS Code using Chocolatey
-  chocolatey.chocolatey.chocolatey:
+  chocolatey.chocolatey.win_chocolatey:
     name: vscode
     state: present
 
 - name: Install latest Python version
-  chocolatey.chocolatey.chocolatey:
+  chocolatey.chocolatey.win_chocolatey:
     name: python
     state: present
 
@@ -114,16 +114,16 @@
     username: SYSTEM
 
 - name: Install Edge
-  chocolatey.chocolatey.chocolatey:
+  chocolatey.chocolatey.win_chocolatey:
     name: microsoft-edge
     state: present
 
 - name: Install Chrome
-  chocolatey.chocolatey.chocolatey:
+  chocolatey.chocolatey.win_chocolatey:
     name: googlechrome
     state: present
 
 - name: Install 7zip
-  chocolatey.chocolatey.chocolatey:
+  chocolatey.chocolatey.win_chocolatey:
     name: 7zip
     state: present
