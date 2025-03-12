@@ -1,0 +1,10 @@
+---
+- name: Create student user with password
+  ansible.windows.win_user:
+    name: student
+    password: std@TempPassword1!
+    password_never_expires: true
+    groups:
+      - Users
+      - Remote Desktop Users
+    state: present

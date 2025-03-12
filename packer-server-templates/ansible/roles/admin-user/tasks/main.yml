@@ -1,0 +1,9 @@
+- name: Create admin user with no password
+  ansible.windows.win_user:
+    name: admin
+    password: adm@!S3CR3T!1
+    password_never_expires: true
+    groups:
+      - Administrators
+      - Remote Desktop Users
+    state: present

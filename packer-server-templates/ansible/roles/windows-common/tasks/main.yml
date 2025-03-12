@@ -1,0 +1,129 @@
+---
+- name: Delete Amazon EC2 default scripts for setting wallpaper
+  ansible.windows.win_file:
+    path: 'C:\ProgramData\Amazon\EC2-Windows\Launch\Module\Scripts\{{ item }}'
+    state: absent
+  with_items:
+    - "Clear-Wallpaper.ps1"
+    - "Import-WallpaperUtil.ps1"
+    - "New-WallpaperSetup.ps1"
+    - "Set-Wallpaper.ps1"
+
+- name: Make directory for wallpaper
+  ansible.windows.win_file:
+    path: 'C:\wallpaper'
+    state: directory
+
+- name: Copy wallpaper to remote machine
+  ansible.windows.win_copy:
+    src: "../../../../files/wallpaper.png"
+    dest: 'C:\wallpaper\wallpaper.png'
+
+- name: Install git
+  chocolatey.chocolatey.chocolatey:
+    name: git
+    state: present
+
+- name: Install NodeJS
+  chocolatey.chocolatey.chocolatey:
+    name: nodejs
+    state: present
+
+- name: Install jdk8
+  chocolatey.chocolatey.chocolatey:
+    name: jdk8
+    version: "8.0.211"
+    state: present
+
+- name: Install VS Code using Chocolatey
+  chocolatey.chocolatey.chocolatey:
+    name: vscode
+    state: present
+
+- name: Install latest Python version
+  chocolatey.chocolatey.chocolatey:
+    name: python
+    state: present
+
+- name: Install Numpy
+  ansible.windows.win_powershell:
+    script: |
+      pip install numpy
+
+- name: Create directory for TightVNC setup file
+  ansible.windows.win_file:
+    path: 'C:\TightVNC'
+    state: directory
+
+- name: Download TightVNC
+  ansible.windows.win_get_url:
+    url: https://www.tightvnc.com/download/2.8.63/tightvnc-2.8.63-gpl-setup-64bit.msi
+    dest: 'C:\TightVNC\TightVNC.msi'
+
+- name: Install TightVNC
+  ansible.windows.win_package:
+    path: 'C:\TightVNC\TightVNC.msi'
+    state: present
+    arguments:
+      - /quiet
+      - /norestart
+      - ADDLOCAL=Server
+      - SERVER_REGISTER_AS_SERVICE=1
+      - SERVER_ADD_FIREWALL_EXCEPTION=1
+      - SERVER_ALLOW_SAS=1
+      - SET_POLLINGINTERVAL=1
+      - VALUE_OF_POLLINGINTERVAL=3
+      - SET_ALLOWLOOPBACK=1
+      - VALUE_OF_ALLOWLOOPBACK=1
+      - SET_RFBPORT=1
+      - VALUE_OF_RFBPORT=5900
+      - SET_USEVNCAUTHENTICATION=1
+      - VALUE_OF_USEVNCAUTHENTICATION=1
+      - SET_PASSWORD=1
+      - VALUE_OF_PASSWORD=testing@Password1
+
+- name: Firewall rule to enable port 6080 for VNC WebSocket proxy
+  ansible.windows.win_firewall_rule:
+    name: NoVNC Proxy
+    localport: 6080
+    action: allow
+    direction: in
+    protocol: tcp
+    state: present
+    enabled: true
+
+- name: Download Websockify
+  ansible.windows.win_powershell:
+    script: |
+      git clone https://github.com/novnc/websockify.git 'C:\Websockify'
+
+- name: Copy .bat file
+  ansible.windows.win_copy:
+    src: "../../../files/websockify.bat"
+    dest: 'C:\Websockify\run_websockify.bat'
+
+- name: Schedule task
+  ansible.windows.win_scheduled_task:
+    name: WebsockifyServer
+    description: Run websockify server on startup (boot)
+    actions:
+      - path: cmd.exe
+        arguments: /C C:\Websockify\run_websockify.bat
+    triggers:
+      - type: boot
+    username: SYSTEM
+
+- name: Install Edge
+  chocolatey.chocolatey.chocolatey:
+    name: microsoft-edge
+    state: present
+
+- name: Install Chrome
+  chocolatey.chocolatey.chocolatey:
+    name: googlechrome
+    state: present
+
+- name: Install 7zip
+  chocolatey.chocolatey.chocolatey:
+    name: 7zip
+    state: present

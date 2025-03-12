@@ -1,0 +1,9 @@
+---
+- name: Bake instance with all required software and dependencies
+  hosts: default
+
+  roles:
+    - admin-user
+    - user
+    - windows-common
+    - visual-studio
