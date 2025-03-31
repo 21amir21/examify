@@ -1,4 +1,4 @@
-variable "digitalocen_token_env" {
+variable "digitalocean_token_env" {
   type        = string
   description = "value for DigitalOcean API token"
 }
