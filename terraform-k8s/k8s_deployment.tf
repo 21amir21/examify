@@ -35,7 +35,8 @@ resource "kubernetes_deployment" "examify-infra" {
             }
           }
           port {
-            container_port = 5000 # might change later for Golang server port 8080
+            # TODO: might change later for Golang server port 8080
+            container_port = 5000
           }
           env {
             name  = "PORT"
