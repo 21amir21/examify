@@ -39,3 +39,8 @@ func ConnectDB() {
 	fmt.Println("Connected to MongoDB successfully!")
 	MongoClient = client
 }
+
+// GetCollection returns a reference to a MongoDB collection
+func GetCollection(dbName string, collectionName string) *mongo.Collection {
+	return MongoClient.Database(dbName).Collection(collectionName)
+}
