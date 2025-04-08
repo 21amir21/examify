@@ -41,6 +41,6 @@ func ConnectDB() {
 }
 
 // GetCollection returns a reference to a MongoDB collection
-func GetCollection(dbName string, collectionName string) *mongo.Collection {
-	return MongoClient.Database(dbName).Collection(collectionName)
+func GetCollection(collectionName string) *mongo.Collection {
+	return MongoClient.Database("examifyDB").Collection(collectionName)
 }
