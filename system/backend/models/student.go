@@ -10,5 +10,17 @@ type Student struct {
 	Name            string               `bson:"name" json:"name"`
 	EnrolledCourses []primitive.ObjectID `bson:"enrolledCourses" json:"enrolledCourses"`
 	EnrolledExams   []primitive.ObjectID `bson:"enrolledExams" json:"enrolledExams"`
-	CurrentExam     Exam                 `bson:"currentExam" json:"currentExam"`
+	CurrentExam     CurrentExam          `bson:"currentExam" json:"currentExam"`
+}
+
+// CurrentExam wraps the exam reference and the instance assigned to a student
+type CurrentExam struct {
+	ExamDetails      primitive.ObjectID `bson:"examDetails" json:"examDetails"`
+	AssignedInstance AssignedInstance   `bson:"assignedInstance" json:"assignedInstance"`
+}
+
+// AssignedInstance represents the instance details assigned to a student for an exam
+type AssignedInstance struct {
+	InstanceIP       string `bson:"instanceIP" json:"instanceIP"`
+	InstancePassword string `bson:"instancePassword" json:"instancePassword"`
 }
