@@ -21,6 +21,11 @@ type TerraformRunner struct {
 	Dir string
 }
 
+type TFVariable struct {
+	Name  string `json:"name"`
+	Value any    `json:"value"`
+}
+
 // NewTerraformRunner is a constructor for TerraformRunner
 func NewTerraformRunner(dir string) *TerraformRunner {
 	return &TerraformRunner{
@@ -47,10 +52,10 @@ func (t *TerraformRunner) selectWorkspace(name string) error {
 	return cmd.Run()
 }
 
-func (t *TerraformRunner) apply(vars map[string]string) (TFOutput, error) {
+func (t *TerraformRunner) apply(vars []TFVariable) (TFOutput, error) {
 	args := []string{"-chdir=" + t.Dir, "apply", "-auto-approve", "-json"}
-	for k, v := range vars {
-		args = append(args, fmt.Sprintf("-var=%s=%s", k, v)) // check the format
+	for _, v := range vars {
+		args = append(args, fmt.Sprintf("-var=%s=%v", v.Name, v.Value))
 	}
 
 	cmd := exec.Command("terraform", args...)
@@ -100,7 +105,7 @@ func (t *TerraformRunner) apply(vars map[string]string) (TFOutput, error) {
 	return output, nil
 }
 
-func (t *TerraformRunner) CreateInfrastructure(workspace string, vars map[string]string) (TFOutput, error) {
+func (t *TerraformRunner) CreateInfrastructure(workspace string, vars []TFVariable) (TFOutput, error) {
 	exists, err := t.workspaceExists(workspace)
 	if err != nil {
 		return nil, err
