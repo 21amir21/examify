@@ -67,7 +67,7 @@ func GetCurrentExam(studentUsername string) (models.CurrentExam, error) {
 		return models.CurrentExam{}, errors.New("no student with the given username exists")
 	}
 
-	if student.CurrentExam.ExamDetails.IsZero() {
+	if student.CurrentExam.ExamDetails.ID.IsZero() {
 		return models.CurrentExam{}, errors.New("there is no current exam registered, please connect to an exam")
 	}
 
@@ -118,7 +118,7 @@ func SetCurrentExam(studentUsername string, examID primitive.ObjectID, instanceI
 	exam.InvigilationInstance.InstancePassword = instancePassword
 
 	// Step 4: Set this exam as the student's current exam
-	student.CurrentExam.ExamDetails = examID
+	student.CurrentExam.ExamDetails = exam
 
 	_, err = StudentCollection.UpdateOne(ctx,
 		bson.M{"_id": examID},

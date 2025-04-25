@@ -15,8 +15,8 @@ type Student struct {
 
 // CurrentExam wraps the exam reference and the instance assigned to a student
 type CurrentExam struct {
-	ExamDetails      primitive.ObjectID `bson:"examDetails" json:"examDetails"`
-	AssignedInstance AssignedInstance   `bson:"assignedInstance" json:"assignedInstance"`
+	ExamDetails      Exam             `bson:"examDetails" json:"examDetails"`
+	AssignedInstance AssignedInstance `bson:"assignedInstance" json:"assignedInstance"`
 }
 
 // AssignedInstance represents the instance details assigned to a student for an exam
