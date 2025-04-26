@@ -1,0 +1,13 @@
+services:
+  backend:
+    build: .
+    container_name: golang-backend-server
+    environment:
+      - MONGO_URI=XXXXXXXXXXXXXXXXXX
+      - PORT=8080
+      - JWT_SECRET=XXXXXXXXXXXXXXXXXX
+      - AWS_ACCESS_KEY_ID=XXXXXXXXXXXXXXXXXX
+      - AWS_SECRET_ACCESS_KEY=XXXXXXXXXXXXXXXXXX
+      - TF_VAR_admin_pass=XXXXXXXXXXXXXXXXXX
+    ports:
+      - "8080:8080"
