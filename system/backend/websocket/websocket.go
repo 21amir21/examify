@@ -2,12 +2,11 @@ package websocket
 
 import (
 	"log"
-	"net/http"
 
 	socketio "github.com/googollee/go-socket.io"
 )
 
-func InitializeServer(httpServer *http.Server) {
+func NewSocketServer() *socketio.Server {
 	server := socketio.NewServer(nil)
 
 	server.OnConnect("/", func(s socketio.Conn) error {
@@ -46,12 +45,24 @@ func InitializeServer(httpServer *http.Server) {
 	})
 
 	go server.Serve()
-	defer server.Close()
 
-	// Mount the server at a custom path like "/invigilation"
-	http.Handle("/invigilation/", http.StripPrefix("/invigilation", server))
+	// TODO: look at it if u want to make the WebSocket server shutdown gracefully
+	// // Create a channel to listen for OS termination signals (e.g., Ctrl+C)
+	// stopChan := make(chan os.Signal, 1)
+	// signal.Notify(stopChan, syscall.SIGINT, syscall.SIGTERM)
 
-	if err := httpServer.ListenAndServe(); err != nil {
-		log.Fatal("WebSocket server failed:", err)
-	}
+	// // Run the server in the background
+	// go func() {
+	// 	log.Println("Starting WebSocket server...")
+	// 	if err := server.Serve(); err != nil {
+	// 		log.Println("Error running WebSocket server:", err)
+	// 	}
+	// }()
+
+	// // Wait for termination signal and then shut down the server gracefully
+	// <-stopChan
+	// log.Println("Shutting down WebSocket server gracefully...")
+	// server.Close()
+
+	return server
 }
