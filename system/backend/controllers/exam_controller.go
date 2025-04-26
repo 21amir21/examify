@@ -54,7 +54,7 @@ func CreateExam(c *gin.Context) {
 	wg.Add(3)
 
 	// Run validations in parallel
-	// using 3 Go Routines
+	// using 3 Goroutines
 	go func() {
 		defer wg.Done()
 		instructor, instructorErr = services.IsInstructorEnrolledToCourse(InstructorObjectID, req.CourseName, req.CourseCode)
