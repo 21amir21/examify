@@ -88,7 +88,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   }, [token, expirationDate, logout]);
 
-  const contextValue: IAuthContext = {
+  const authContext: IAuthContext = {
     username,
     id,
     token,
@@ -98,7 +98,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={authContext}>{children}</AuthContext.Provider>
   );
 };
 
