@@ -1,11 +1,11 @@
-import React, { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState, ReactNode } from "react";
 import { useNavigate } from "react-router-dom";
 import AuthContext, { IAuthContext } from "./AuthContext";
 
 let logoutTimer: number;
 
 interface AuthProviderProps {
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
