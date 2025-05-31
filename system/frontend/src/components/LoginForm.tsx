@@ -54,7 +54,7 @@ const LoginForm: React.FC = () => {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col items-center bg-primary/70 px-20 py-20 m-20 rounded-[50px] shadow-[0_1px_20px_rgba(0,0,0,0.7)]"
+      className="flex flex-col items-center bg-[#292f6bce] px-20 py-20 m-20 rounded-[50px] shadow-[0_1px_20px_rgba(0,0,0,0.7)]"
     >
       <Avatar
         sx={{
