@@ -61,7 +61,7 @@ const LoginForm: React.FC = () => {
           width: "80px",
           height: "80px",
           backgroundColor: "white",
-          marginBottom: "30px",
+          margin: "30px",
           filter: "drop-shadow(0px 0px 20px rgba(204, 22, 113, 0.479))",
         }}
       >
@@ -136,7 +136,7 @@ const LoginForm: React.FC = () => {
 
       {/* Submit Button */}
       <input
-        className="mt-8 rounded-full bg-white shadow-[0px_15px_50px_black] px-10 py-2 font-bold border-none hover:bg-white/90 hover:scale-110 transition-transform duration-200 filter drop-shadow-[0px_0px_10px_rgba(204,22,113,0.541)] cursor-pointer"
+        className="m-8 rounded-full bg-white shadow-[0px_15px_50px_black] px-10 py-2 font-bold border-none hover:bg-white/90 hover:scale-110 transition-transform duration-200 filter drop-shadow-[0px_0px_10px_rgba(204,22,113,0.541)] cursor-pointer"
         type="submit"
         value="Login"
       />
