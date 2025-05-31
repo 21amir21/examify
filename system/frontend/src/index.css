@@ -1,4 +1,6 @@
 @import "tailwindcss";
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap");
+
 
 .sk-cube1::before,
 .sk-cube2::before,
@@ -23,3 +25,44 @@
   animation-delay: 0.9s !important;
 }
 
+
+html {
+  min-height: 100vh;
+}
+
+body {
+  min-height: 100vh;
+  background-image: url("https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1548&q=80");
+  backdrop-filter: blur(20px) brightness(0.5) contrast(1.12);
+  background-size: cover;
+  min-height: -webkit-fill-available;
+  font-family: "Open Sans", sans-serif;
+  font-size: 1.2rem;
+  font-weight: 300;
+  margin: 0;
+}
+
+input,
+select {
+  transition: all 0.2s ease-in-out;
+  font-size: 1rem;
+}
+
+input:focus,
+input:hover,
+select:focus,
+select:hover {
+  outline: none;
+  filter: drop-shadow(0px 0px 10px rgba(204, 22, 113, 0.541));
+  /* transform: scale(1.2); */
+}
+
+textarea:focus {
+  outline: none;
+  cursor: not-allowed;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+}
