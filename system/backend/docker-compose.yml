@@ -1,13 +1,36 @@
 services:
   backend:
-    build: .
-    container_name: golang-backend-server
+    image: 21amir21/golang-server-tf:1.0.0
+    container_name: golang-server
+    volumes:
+      - .:/app:ro
     environment:
-      - MONGO_URI=XXXXXXXXXXXXXXXXXX
       - PORT=8080
-      - JWT_SECRET=XXXXXXXXXXXXXXXXXX
+      - JWT_SECRET=${JWT_SECRET}
       - AWS_ACCESS_KEY_ID=XXXXXXXXXXXXXXXXXX
       - AWS_SECRET_ACCESS_KEY=XXXXXXXXXXXXXXXXXX
-      - TF_VAR_admin_pass=XXXXXXXXXXXXXXXXXX
+      - TF_VAR_admin_pass=adm@!S3CR3T!1
     ports:
       - "8080:8080"
+    env_file:
+      - .env
+    depends_on:
+      - db
+
+  db:
+   image: mongo
+   container_name: mongo
+   restart: always
+   volumes:
+     - mongo-data:/data/db
+   ports:
+     - "2717:27017"
+   environment:
+     - MONGO_URI=${MONGO_URI}
+     - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
+     - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
+     
+    
+
+volumes:
+  mongo-data:
