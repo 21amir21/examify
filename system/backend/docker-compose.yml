@@ -4,12 +4,6 @@ services:
     container_name: golang-server
     volumes:
       - .:/app:ro
-    environment:
-      - PORT=8080
-      - JWT_SECRET=${JWT_SECRET}
-      - AWS_ACCESS_KEY_ID=XXXXXXXXXXXXXXXXXX
-      - AWS_SECRET_ACCESS_KEY=XXXXXXXXXXXXXXXXXX
-      - TF_VAR_admin_pass=adm@!S3CR3T!1
     ports:
       - "8080:8080"
     env_file:
