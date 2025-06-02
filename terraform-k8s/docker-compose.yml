@@ -1,0 +1,17 @@
+services:
+  infra:
+   build:
+     context: .
+   container_name: tf-k8s
+   environment:
+     - TF_VAR_digitalocean_token_env=${TF_VAR_digitalocean_token_env}
+     - TF_VAR_mongo_uri_env=${TF_VAR_mongo_uri_env}
+     - TF_VAR_port_env=8080
+     - TF_VAR_jwt_secret_env=${TF_VAR_jwt_secret_env}
+     - TF_VAR_aws_access_key_id=${TF_VAR_aws_access_key_id}
+     - TF_VAR_aws_secret_access_key=${TF_VAR_aws_secret_access_key}
+     - TF_VAR_admin_password_env=adm@!S3CR3T!1
+     - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+     - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+     - DIGITALOCEAN_ACCESS_TOKEN=${DIGITALOCEAN_ACCESS_TOKEN}
+    
