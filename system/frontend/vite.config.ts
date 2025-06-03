@@ -8,4 +8,7 @@ export default defineConfig({
     // Ensure build output is correctly configured for your project
     target: "esnext",
   },
+  define: {
+    global: "window",
+  },
 });
