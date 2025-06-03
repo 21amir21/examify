@@ -3,7 +3,9 @@ services:
     image: 21amir21/golang-server-tf:1.0.0
     container_name: golang-server
     volumes:
-      - .:/app:ro
+      - .:/app
+      # TODO: might be needed and might not be needed
+      # - ./terraform:/app/terraform:ro   # mount only terraform files so terraform CLI works
     ports:
       - "8080:8080"
     env_file:
