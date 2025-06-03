@@ -37,12 +37,14 @@ source "amazon-ebs" "win-server" {
     most_recent = true
     owners      = ["801119661308"]
   }
-  user_data_file   = "bootstrap_win.txt"
-  communicator     = "winrm"
-  force_deregister = true
-  winrm_insecure   = true
-  winrm_username   = "Administrator"
-  winrm_use_ssl    = true
+  user_data_file          = "bootstrap_win.txt"
+  communicator            = "winrm"
+  force_deregister        = true
+  winrm_insecure          = true
+  winrm_username          = "Administrator"
+  winrm_use_ssl           = true
+  winrm_timeout           = "10m"
+  pause_before_connecting = "60s"
 }
 
 # a build block invokes sources and runs provisioning steps on them.
@@ -52,7 +54,7 @@ build {
 
   provisioner "ansible" {
     user             = "Administrator"
-    use_proxy       = false
+    use_proxy        = false
     ansible_env_vars = ["WINRM_PASSWORD={{.WinRMPassword}}"]
 
     extra_arguments = [
