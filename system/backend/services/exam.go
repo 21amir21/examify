@@ -18,8 +18,10 @@ func IsExamUnique(name string) error {
 	ctx, cancel := context.WithTimeout(context.Background(), timeout)
 	defer cancel()
 
+	examColl := db.GetCollection("exams")
+
 	var exam models.Exam
-	err := ExamCollection.FindOne(ctx, bson.M{"name": name}).Decode(&exam)
+	err := examColl.FindOne(ctx, bson.M{"name": name}).Decode(&exam)
 	if err != nil {
 		return err
 	}
