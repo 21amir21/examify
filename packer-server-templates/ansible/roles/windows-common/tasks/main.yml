@@ -16,7 +16,7 @@
 
 - name: Copy wallpaper to remote machine
   ansible.windows.win_copy:
-    src: "../../../../files/wallpaper.png"
+    src: "../../../utils/wallpaper_bue.png"
     dest: 'C:\wallpaper\wallpaper.png'
 
 - name: Install git
@@ -99,7 +99,7 @@
 
 - name: Copy .bat file
   ansible.windows.win_copy:
-    src: "../../../files/websockify.bat"
+    src: "../../../utils/websockify.bat"
     dest: 'C:\Websockify\run_websockify.bat'
 
 - name: Schedule task
@@ -122,6 +122,7 @@
   chocolatey.chocolatey.win_chocolatey:
     name: googlechrome
     state: present
+    ignore_checksums: true
 
 - name: Install 7zip
   chocolatey.chocolatey.win_chocolatey:
