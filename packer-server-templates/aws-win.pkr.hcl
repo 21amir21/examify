@@ -1,11 +1,10 @@
 packer {
   required_version = ">= 1.7.0"
-}
-
-required_plugins {
-  amazon = {
-    version = ">= 1.5.0"
-    source  = "github.com/hashicorp/amazon"
+  required_plugins {
+    amazon = {
+      version = ">= 1.3.7"
+      source  = "github.com/hashicorp/amazon"
+    }
   }
 }
 
@@ -30,7 +29,7 @@ source "amazon-ebs" "win-server" {
   }
   region = "${var.region}"
   source_ami_filter {
-    filters {
+    filters = {
       virtualization-type = "hvm"
       name                = "Windows_Server-2019-English-Full-Base-*"
       root-device-type    = "ebs"
@@ -53,7 +52,7 @@ build {
 
   provisioner "ansible" {
     user             = "Administrator"
-    user_proxy       = false
+    use_proxy       = false
     ansible_env_vars = ["WINRM_PASSWORD={{.WinRMPassword}}"]
 
     extra_arguments = [
