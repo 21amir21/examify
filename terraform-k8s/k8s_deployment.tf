@@ -58,7 +58,7 @@ resource "kubernetes_deployment" "examify-infra" {
             value = var.aws_secret_access_key
           }
           env {
-            name  = "TF_VAR_admin_pass"
+            name  = "TF_VAR_admin_password"
             value = var.admin_password_env
           }
         }

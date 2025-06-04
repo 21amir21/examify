@@ -1,6 +1,6 @@
 terraform {
   required_providers {
-    digitalocen = {
+    digitalocean = {
       source  = "digitalocean/digitalocean"
       version = "2.50.0"
     }
@@ -21,7 +21,7 @@ terraform {
 
 }
 
-provider "digitalocen" {
+provider "digitalocean" {
   token = var.digitalocean_token_env
 }
 
@@ -34,7 +34,7 @@ provider "kubernetes" {
 resource "digitalocean_kubernetes_cluster" "examify-k8s-cluster" {
   name    = "examify-k8s-cluster"
   region  = "fra1"
-  version = "1.22.8-do.1"
+  version = "1.32.2-do.3"
   ha      = true
   node_pool {
     name       = "worker-pool"

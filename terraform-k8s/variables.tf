@@ -14,7 +14,7 @@ variable "mongo_uri_env" {
 }
 
 variable "port_env" {
-  type        = number
+  type        = string
   description = "Specifices the port to use in the container"
 }
 

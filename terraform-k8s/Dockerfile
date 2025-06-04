@@ -8,7 +8,7 @@ RUN apk add --no-cache \
     curl
 
 
-ENV TERRAFORM_VERSION 1.11.3
+ENV TERRAFORM_VERSION=1.11.3
 
 # install Terraform 
 RUN wget -O terraform.zip https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip && \
@@ -30,4 +30,4 @@ WORKDIR /terraform-k8s
 COPY ./ ./
 
 # keep the Docker container running
-CMD tail -f /dev/null
+CMD ["tail", "-f", "/dev/null"]
