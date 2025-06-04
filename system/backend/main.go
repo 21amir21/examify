@@ -3,11 +3,13 @@ package main
 import (
 	"log"
 	"net/http"
+	"time"
 
 	"github.com/21amir21/examify/config"
 	"github.com/21amir21/examify/db"
 	"github.com/21amir21/examify/routes"
 	"github.com/21amir21/examify/websocket"
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )
 
@@ -17,6 +19,16 @@ func main() {
 
 	// ==== Gin Router (REST APIs) ====
 	r := gin.Default()
+
+	// Add CORS middleware for all routes
+	r.Use(cors.New(cors.Config{
+		AllowOrigins:     []string{"http://localhost:5173"},
+		AllowMethods:     []string{"GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"},
+		AllowHeaders:     []string{"Origin", "Content-Type", "Authorization"},
+		ExposeHeaders:    []string{"Content-Length"},
+		AllowCredentials: true,
+		MaxAge:           12 * time.Hour,
+	}))
 
 	routes.RegisterAuthRoutes(r)
 	routes.RegisterStudentRoutes(r)
@@ -44,7 +56,7 @@ func main() {
 	}
 }
 
-// CORS middleware
+// CORS middleware for WebSocket server
 func allowCORS(h http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Access-Control-Allow-Origin", "*")

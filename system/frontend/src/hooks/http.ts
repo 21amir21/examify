@@ -5,7 +5,7 @@ interface ErrorResponse {
   errorDetails: string[] | { msg: string }[];
 }
 
-type HttpMethod = "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
+type HttpMethod = "GET" | "POST" | "PUT" | "PATCH" | "DELETE" | "OPTIONS";
 
 export const useHttpClient = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
