@@ -25,7 +25,7 @@ func Login(c *gin.Context) {
 		c.JSON(http.StatusUnprocessableEntity, gin.H{"error": "Invalid credentials"})
 	}
 
-	coll := db.GetCollection(strings.ToLower(req.Role)) // "student" or "instructor"
+	coll := db.GetCollection(strings.ToLower(req.Role) + "s") // "students" or "instructors"
 
 	var user map[string]any
 	err := coll.FindOne(context.TODO(), bson.M{"username": strings.ToLower(req.Username)}).Decode(&user)
