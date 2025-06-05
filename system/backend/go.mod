@@ -3,6 +3,7 @@ module github.com/21amir21/examify
 go 1.23.4
 
 require (
+	github.com/gin-contrib/cors v1.7.5
 	github.com/gin-gonic/gin v1.10.0
 	github.com/googollee/go-socket.io v1.7.0
 	github.com/joho/godotenv v1.5.1
@@ -10,17 +11,16 @@ require (
 )
 
 require (
-	github.com/gin-contrib/cors v1.7.5 // indirect
 	github.com/gofrs/uuid v4.0.0+incompatible // indirect
 	github.com/gomodule/redigo v2.0.0+incompatible // indirect
 	github.com/gorilla/websocket v1.4.2 // indirect
+	github.com/kr/text v0.2.0 // indirect
 )
 
 require (
 	github.com/bytedance/sonic v1.13.2 // indirect
 	github.com/bytedance/sonic/loader v0.2.4 // indirect
 	github.com/cloudwego/base64x v0.1.5 // indirect
-	github.com/cloudwego/iasm v0.2.0 // indirect
 	github.com/gabriel-vasile/mimetype v1.4.8 // indirect
 	github.com/gin-contrib/sse v1.0.0 // indirect
 	github.com/go-playground/locales v0.14.1 // indirect
