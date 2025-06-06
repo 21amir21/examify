@@ -3,5 +3,6 @@ output "instance_ip" {
 }
 
 output "temp_password" {
-  value = random_password.instance_password.result
+  value     = random_password.instance_password.result
+  sensitive = true
 }

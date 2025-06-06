@@ -13,11 +13,10 @@ variable "instance_type" {
 
 variable "ami_name" {
   type    = string
-  default = "win-basic"
+  default = "win-server"
 }
 
 variable "admin-password" {
-  type = string
-  # TODO: im not sure thats right
+  type    = string
   default = "adm@!S3CR3T!1"
 }
