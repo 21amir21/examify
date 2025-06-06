@@ -1,7 +1,6 @@
 package terraform
 
 import (
-	"bufio"
 	"bytes"
 	"encoding/json"
 	"fmt"
@@ -53,56 +52,47 @@ func (t *TerraformRunner) selectWorkspace(name string) error {
 }
 
 func (t *TerraformRunner) apply(vars []TFVariable) (TFOutput, error) {
-	args := []string{"-chdir=" + t.Dir, "apply", "-auto-approve", "-json"}
+	args := []string{"-chdir=" + t.Dir, "apply", "-auto-approve"}
 	for _, v := range vars {
 		args = append(args, fmt.Sprintf("-var=%s=%v", v.Name, v.Value))
 	}
 
 	cmd := exec.Command("terraform", args...)
-	stdout, err := cmd.StdoutPipe()
+
+	var stdoutBuf, stderrBuf bytes.Buffer
+	cmd.Stdout = &stdoutBuf
+	cmd.Stderr = &stderrBuf
+
+	err := cmd.Run()
+
 	if err != nil {
-		return nil, err
-	}
-	if err := cmd.Start(); err != nil {
-		return nil, err
-	}
-
-	scanner := bufio.NewScanner(stdout)
-	var output TFOutput
-
-	for scanner.Scan() {
-		line := scanner.Bytes()
-		line = bytes.TrimSpace(line)
-		if len(line) == 0 {
-			continue
-		}
-
-		var msg map[string]any
-		if err := json.Unmarshal(line, &msg); err != nil {
-			continue // to skip bad lines
-		}
-
-		if msg["type"] == "outputs" {
-			var outMsg struct {
-				Outputs TFOutput `json:"outputs"`
-			}
-			if err := json.Unmarshal(line, &outMsg); err != nil {
-				return nil, fmt.Errorf("faild to parse outputs: %w", err)
-			}
-			output = outMsg.Outputs
-			break
-		}
+		// Log both stdout and stderr clearly
+		fmt.Println("Terraform apply failed")
+		fmt.Println("STDOUT:\n" + stdoutBuf.String())
+		fmt.Println("STDERR:\n" + stderrBuf.String())
+		return nil, fmt.Errorf("terraform apply failed: %w", err)
 	}
 
-	if err := cmd.Wait(); err != nil {
-		return nil, err
+	// After a successful apply, run terraform output -json to get structured output
+	outputCmd := exec.Command("terraform", "-chdir="+t.Dir, "output", "-json")
+
+	var outBuf bytes.Buffer
+	outputCmd.Stdout = &outBuf
+	outputCmd.Stderr = &stderrBuf // reuse the same buffer for capturing output errors
+
+	if err := outputCmd.Run(); err != nil {
+		fmt.Println("Failed to fetch terraform outputs")
+		fmt.Println("STDOUT:\n" + outBuf.String())
+		fmt.Println("STDERR:\n" + stderrBuf.String())
+		return nil, fmt.Errorf("terraform output failed: %w", err)
 	}
 
-	if output == nil {
-		return nil, fmt.Errorf("could not get terraform outputs")
+	var tfOutput TFOutput
+	if err := json.Unmarshal(outBuf.Bytes(), &tfOutput); err != nil {
+		return nil, fmt.Errorf("failed to parse terraform outputs: %w", err)
 	}
 
-	return output, nil
+	return tfOutput, nil
 }
 
 func (t *TerraformRunner) CreateInfrastructure(workspace string, vars []TFVariable) (TFOutput, error) {
