@@ -1,0 +1,44 @@
+.Card {
+  margin: 50px;
+  min-width: 320px;
+  max-width: 35rem;
+}
+
+.CardContent {
+  text-align: center;
+}
+
+.ExamNameWrapper {
+  background-color: #292f6b;
+  color: white;
+  padding: 20px;
+}
+
+.ExamNameWrapper h1 {
+  margin: 0;
+}
+
+.CardActions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: auto;
+  padding: 30px;
+}
+
+.Button {
+  background-color: #292f6b;
+  color: rgb(0, 0, 0);
+  font-size: 1.3rem;
+  font-weight: bold;
+  padding: 20px 30px;
+  cursor: pointer;
+  border-radius: 50px;
+  border: 0;
+}
+
+.ActionsMessage {
+  color: rgb(0, 0, 0);
+  font-weight: bold;
+  text-align: center;
+}

@@ -1,0 +1,23 @@
+.VideoContainer {
+  border: 1px solid black;
+  display: inline-block;
+  position: relative;
+  width: 30%;
+  height: 30%;
+}
+
+.VideoContainer video {
+  width: 100%;
+  height: 100%;
+}
+
+.VideoContainer .VideoOverlay {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  font-size: 20px;
+  color: #fff;
+  background-color: rgba(22, 22, 22, 0.822);
+  width: 100%;
+  text-align: center;
+}

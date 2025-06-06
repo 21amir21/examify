@@ -1,0 +1,8 @@
+.Content {
+  padding: 120px 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  justify-content: center;
+  align-items: center;
+}
