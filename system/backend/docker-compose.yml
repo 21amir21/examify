@@ -16,15 +16,16 @@ services:
   db:
    image: mongo
    container_name: mongo
+   command: ["--replSet", "rs0", "--bind_ip_all"]
    restart: always
    volumes:
      - mongo-data:/data/db
    ports:
      - "2717:27017"
-   environment:
-     - MONGO_URI=${MONGO_URI}
-     - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
-     - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
+  #  environment:
+  #    - MONGO_URI=${MONGO_URI}
+  #    - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
+  #    - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
      
     
 
