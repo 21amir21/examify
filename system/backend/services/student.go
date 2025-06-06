@@ -3,6 +3,7 @@ package services
 import (
 	"context"
 	"errors"
+	"log"
 	"time"
 
 	"github.com/21amir21/examify/db"
@@ -28,6 +29,11 @@ func GetStudentExams(studentUsername string) ([]models.Exam, error) {
 
 	if student.Username == "" {
 		return nil, errors.New("no student with the given username exists")
+	}
+
+	if student.EnrolledExams == nil {
+		log.Println("Warning: student.EnrolledExams is nil, defaulting to empty array")
+		student.EnrolledExams = []primitive.ObjectID{}
 	}
 
 	// Fetch the full Exam documents using the enrolled exam IDs similar to populate()
