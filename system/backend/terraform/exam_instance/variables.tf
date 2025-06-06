@@ -18,4 +18,6 @@ variable "ami_name" {
 
 variable "admin-password" {
   type = string
+  # TODO: im not sure thats right
+  default = "adm@!S3CR3T!1"
 }

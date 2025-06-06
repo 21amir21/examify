@@ -58,11 +58,11 @@ resource "aws_internet_gateway" "igw" {
 resource "aws_route_table" "custom-route-table" {
   vpc_id = aws_vpc.vpc.id
 
-  route = {
+  route {
     # associated subnet can communicate with any ip on the internet
     cidr_block = "0.0.0.0/0"
     # let the custom route table use the created igw to reach internet
-    gatway_id = aws_internet_gateway.igw.id
+    gateway_id = aws_internet_gateway.igw.id
   }
 
   tags = {
