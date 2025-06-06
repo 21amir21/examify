@@ -32,6 +32,7 @@ export const useHttpClient = () => {
           body,
           headers,
           signal: httpAbortCtrl.signal,
+          credentials: "include",
         });
 
         const responseData = await response.json();
@@ -64,6 +65,12 @@ export const useHttpClient = () => {
         setIsLoading(false);
         return responseData;
       } catch (err) {
+        // TODO: might change later
+        if ((err as Error).name === "AbortError") {
+          console.warn("⛔️ Request aborted");
+          return; // prevent setting error state for aborted requests
+        }
+
         setErrorTitle("Server Error");
         setErrorDetails([
           "Error connecting to server, please try again later.",
