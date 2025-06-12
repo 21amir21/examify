@@ -62,7 +62,7 @@ func Register(c *gin.Context) {
 		return
 	}
 
-	coll := db.GetCollection(strings.ToLower(req.Role))
+	coll := db.GetCollection(strings.ToLower(req.Role) + "s") // "students" or "instructors"
 
 	// check if user exists
 	count, err := coll.CountDocuments(context.TODO(), bson.M{"username": strings.ToLower(req.Username)})
