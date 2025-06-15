@@ -1,6 +1,7 @@
 import React from "react";
 import DrawerToggle from "./DrawerToggle";
 import NavigationItems from "./NavigationItems";
+import classes from "../../styles/Toolbar.module.css";
 
 interface ToolbarProps {
   drawerToggleClicked: () => void;
@@ -8,12 +9,12 @@ interface ToolbarProps {
 
 const Toolbar: React.FC<ToolbarProps> = ({ drawerToggleClicked }) => {
   return (
-    <header className="fixed top-0 left-0 w-full h-[100px] bg-[#292f6b] flex justify-between items-center pl-5 z-[90] box-border">
+    <header className={classes.Toolbar}>
       <DrawerToggle clicked={drawerToggleClicked} />
-      <div className="flex items-center">
-        <img src="/images/logo.png" alt="Logo" className="w-[250px] h-[90px]" />
+      <div className={classes.Logo}>
+        <img src="/logo.jpeg" alt="Logo" />
       </div>
-      <nav className="hidden sm:block h-full">
+      <nav className={classes.DesktopOnly}>
         <NavigationItems />
       </nav>
     </header>
